@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ТН ВЭД кодун аныктоо</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        #container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>ТН ВЭД кодун аныктоо</h1>
+        <label for="description">Товардын сүрөттөлүшү:</label>
+        <textarea id="description" rows="4"></textarea>
+        <button onclick="classify()">Кодду аныктоо</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const data = {
+            "ТН ВЭД коду": [8705908002, 6109100000, 6309000000, 6116930000, 4015120001, 9001101000, 8414202000, 1101001509, 1102905000, 1102903000],
+            "Описание": ["Автомобили грузовые аварийные, бывшие в эксплуатации", "Майки, фуфайки с рукавами и прочие нательные фуфайки трикотажные, из хлопчатобумажной пряжи, машинного или ручного вязания", "Одежда и прочие изделия, бывшие в употреблении", "Прочие перчатки, рукавицы и митенки трикотажные из синтетических нитей машинного или ручного вязания", "Перчатки хирургические", "Кабели для передачи изображения, волоконно-оптические", "Пневматические насосы ручные для велосипедов", "Мука из пшеницы мягкой и спельты, прочая", "Мука рисовая", "Мука овсяная"]
+        };
+
+        function classify_product(description) {
+            for (let i = 0; i < data["Описание"].length; i++) {
+                if (data["Описание"][i].toLowerCase().includes(description.toLowerCase())) {
+                    return data["ТН ВЭД коду"][i];
+                }
+            }
+            return "Код табылган жок"; // Kyrgyz for "Code not found"
+        }
+
+        function classify() {
+            const description = document.getElementById("description").value;
+            const code = classify_product(description);
+            document.getElementById("result").textContent = `ТН ВЭД коду: ${code}`;
+        }
+    </script>
+</body>
+</html>
